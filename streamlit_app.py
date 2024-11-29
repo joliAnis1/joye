@@ -19,7 +19,7 @@ if 'education' not in st.session_state:
 st.subheader("Profile")
 
 # Display the image directly from a file path
-st.image("profile_image.jpg", caption="Princess Joye Abdula C. Retorta", use_column_width=True)  # Update this to the correct file path
+st.image("joye.jpg", caption="Princess Joye Abdula C. Retorta", use_column_width=True)  # Update this to the correct file path
 
 # Personal Info
 st.markdown("### Personal Information")
