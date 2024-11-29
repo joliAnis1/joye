@@ -2,7 +2,7 @@ import streamlit as st
 from datetime import datetime
 
 # Title and Header
-st.title("My Personal Blog")
+st.title("My Blog")
 st.header("Welcome to My Blog!")
 
 # Global storage
