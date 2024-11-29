@@ -1,11 +1,9 @@
 import streamlit as st
 from datetime import datetime
 
-# Title and Header
 st.title("My Personal Blog")
 st.header("Welcome to My Blog!")
 
-# Global storage
 if 'posts' not in st.session_state:
     st.session_state['posts'] = []
 
@@ -15,13 +13,10 @@ if 'certificates' not in st.session_state:
 if 'education' not in st.session_state:
     st.session_state['education'] = []
 
-# Profile Section
 st.subheader("Profile")
 
-# Display the image directly from a file path
 st.image("joye.jpg", caption="Princess Joye Abdula C. Retorta", use_column_width=True)  # Update this to the correct file path
 
-# Personal Info
 st.markdown("### Personal Information")
 name = "Princess Joye Abdula C. Retorta"
 address = "Sitio Bioborjan P-2 Brgy. Rizal, Surigao City"
@@ -35,12 +30,10 @@ st.markdown(f"""
 - **Birthday**: {birthday.strftime('%B %d, %Y')}
 """)
 
-# About Me Section
 st.subheader("About Me")
 about_me = "I love cooking, reading, drawing, watching movies, and writing poems."
 st.markdown(f"**About Me**: {about_me}")
 
-# Blog Post Section
 sections = ["Create a Post", "View Posts", "Certificates & Educational Attainment"]
 choice = st.selectbox("Go to", sections)
 
@@ -77,7 +70,6 @@ elif choice == "View Posts":
 elif choice == "Certificates & Educational Attainment":
     st.subheader("Certificates and Educational Attainment")
 
-    # Certificates Section
     st.markdown("### Certificates")
     new_certificate = st.text_input("Add a Certificate")
     if st.button("Add Certificate"):
@@ -95,7 +87,6 @@ elif choice == "Certificates & Educational Attainment":
                 st.success("Certificate deleted!")
                 st.experimental_rerun()
 
-    # Educational Attainment Section
     st.markdown("### Educational Attainment")
     new_education = st.text_input("Add Educational Attainment")
     if st.button("Add Educational Attainment"):
@@ -113,6 +104,3 @@ elif choice == "Certificates & Educational Attainment":
                 st.success("Educational attainment deleted!")
                 st.experimental_rerun()
 
-# Footer
-st.markdown("---")
-st.write("Built with ❤️ using Streamlit")
