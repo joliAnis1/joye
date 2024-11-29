@@ -2,7 +2,7 @@ import streamlit as st
 from datetime import datetime
 
 # Title and Header
-st.title("My Blog")
+st.title("My Personal Blog")
 st.header("Welcome to My Blog!")
 
 # Global storage
@@ -17,16 +17,17 @@ if 'education' not in st.session_state:
 
 # Profile Section
 st.subheader("Profile")
-uploaded_image = st.file_uploader("Upload your profile image", type=["png", "jpg", "jpeg"])
-if uploaded_image:
-    st.image(uploaded_image, caption="Your Profile Image", use_column_width=True)
+
+# Display the image directly from a file path
+st.image("profile_image.jpg", caption="Princess Joye Abdula C. Retorta", use_column_width=True)  # Update this to the correct file path
 
 # Personal Info
 st.markdown("### Personal Information")
-name = st.text_input("Name", "Your Name")
-address = st.text_input("Address", "Your Address")
-age = st.number_input("Age", 0, 150, 18)
-birthday = st.date_input("Birthday")
+name = "Princess Joye Abdula C. Retorta"
+address = "Sitio Bioborjan P-2 Brgy. Rizal, Surigao City"
+age = 18
+birthday = datetime(2006, 3, 12)
+
 st.markdown(f"""
 - **Name**: {name}
 - **Address**: {address}
@@ -36,9 +37,8 @@ st.markdown(f"""
 
 # About Me Section
 st.subheader("About Me")
-about_me = st.text_area("Write about yourself...")
-if about_me:
-    st.markdown(f"**About Me**: {about_me}")
+about_me = "I love cooking, reading, drawing, watching movies, and writing poems."
+st.markdown(f"**About Me**: {about_me}")
 
 # Blog Post Section
 sections = ["Create a Post", "View Posts", "Certificates & Educational Attainment"]
