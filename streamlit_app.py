@@ -1,31 +1,50 @@
 import streamlit as st
 from datetime import datetime
 
-# Title and header
+# Title and Header
 st.title("My Personal Blog")
 st.header("Welcome to My Blog!")
 
-# Blog post content
-st.sidebar.title("Navigation")
-sections = ["Home", "Create a Post", "View Posts", "About"]
-choice = st.sidebar.radio("Go to", sections)
-
-# Global storage for blog posts (for simplicity; use a database for production)
+# Global storage
 if 'posts' not in st.session_state:
     st.session_state['posts'] = []
 
-if choice == "Home":
-    st.subheader("Latest Posts")
-    if st.session_state['posts']:
-        for post in reversed(st.session_state['posts']):
-            st.markdown(f"### {post['title']}")
-            st.write(post['content'])
-            st.write(f"Written by {post['author']} on {post['date']}")
-            st.markdown("---")
-    else:
-        st.write("No posts yet. Start creating!")
+if 'certificates' not in st.session_state:
+    st.session_state['certificates'] = []
 
-elif choice == "Create a Post":
+if 'education' not in st.session_state:
+    st.session_state['education'] = []
+
+# Profile Section
+st.subheader("Profile")
+uploaded_image = st.file_uploader("Upload your profile image", type=["png", "jpg", "jpeg"])
+if uploaded_image:
+    st.image(uploaded_image, caption="Your Profile Image", use_column_width=True)
+
+# Personal Info
+st.markdown("### Personal Information")
+name = st.text_input("Name", "Your Name")
+address = st.text_input("Address", "Your Address")
+age = st.number_input("Age", 0, 150, 18)
+birthday = st.date_input("Birthday")
+st.markdown(f"""
+- **Name**: {name}
+- **Address**: {address}
+- **Age**: {age}
+- **Birthday**: {birthday.strftime('%B %d, %Y')}
+""")
+
+# About Me Section
+st.subheader("About Me")
+about_me = st.text_area("Write about yourself...")
+if about_me:
+    st.markdown(f"**About Me**: {about_me}")
+
+# Blog Post Section
+sections = ["Create a Post", "View Posts", "Certificates & Educational Attainment"]
+choice = st.selectbox("Go to", sections)
+
+if choice == "Create a Post":
     st.subheader("Create a New Blog Post")
     title = st.text_input("Post Title")
     author = st.text_input("Author Name")
@@ -55,14 +74,45 @@ elif choice == "View Posts":
     else:
         st.write("No posts to display.")
 
-elif choice == "About":
-    st.subheader("About This Blog")
-    st.write("""
-    This is a simple blog built using Streamlit.
-    You can create, view, and manage posts dynamically.
-    Enjoy blogging!
-    """)
+elif choice == "Certificates & Educational Attainment":
+    st.subheader("Certificates and Educational Attainment")
+
+    # Certificates Section
+    st.markdown("### Certificates")
+    new_certificate = st.text_input("Add a Certificate")
+    if st.button("Add Certificate"):
+        if new_certificate:
+            st.session_state['certificates'].append(new_certificate)
+            st.success("Certificate added!")
+        else:
+            st.error("Please enter a certificate.")
+
+    if st.session_state['certificates']:
+        for i, cert in enumerate(st.session_state['certificates']):
+            st.write(f"{i + 1}. {cert}")
+            if st.button(f"Delete Certificate {i + 1}", key=f"del_cert_{i}"):
+                st.session_state['certificates'].pop(i)
+                st.success("Certificate deleted!")
+                st.experimental_rerun()
+
+    # Educational Attainment Section
+    st.markdown("### Educational Attainment")
+    new_education = st.text_input("Add Educational Attainment")
+    if st.button("Add Educational Attainment"):
+        if new_education:
+            st.session_state['education'].append(new_education)
+            st.success("Educational attainment added!")
+        else:
+            st.error("Please enter educational attainment.")
+
+    if st.session_state['education']:
+        for i, edu in enumerate(st.session_state['education']):
+            st.write(f"{i + 1}. {edu}")
+            if st.button(f"Delete Educational Attainment {i + 1}", key=f"del_edu_{i}"):
+                st.session_state['education'].pop(i)
+                st.success("Educational attainment deleted!")
+                st.experimental_rerun()
 
 # Footer
-st.sidebar.markdown("---")
-st.sidebar.write("Built with ❤️ using Streamlit")
+st.markdown("---")
+st.write("Built with ❤️ using Streamlit")
